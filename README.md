@@ -2,19 +2,25 @@
 Are you lazy programmer who wants to automate tasks but does not want to run them in specific time period if they succeed (yes, it's very specific)? Don't worry so am I. That's why I've spent couple of hours working on Conditional Automation, instead of running the code by myself (ugh) ad hoc.
 
 ### Basic Idea
-1. Run the automation (check pre conditions [optional] -> run process -> check post conditions [optioal]).
+1. Run the automation (check pre conditions [optional] -> run process -> check post conditions [optional]).
 2. If succeeded, don't run it until specific time frame is breached.
 3. If failed, try running it again after specific time period.
 4. After time frame is breached go back to step 1.
 
 ## Building Blocks
-### Condition
-Function returning True or False. It's supposed to check if everything for needed for process is in place (for example files in directory etc.) or if output if fine (for example check if output files were generated or not).
 
-Can use <b>Kwargs</b> (more on that later).
+### Automation
+Setting up process, time frame and conditions. This is most important element. It will check if process was successful and if so, it will stop future execution in specified time frame. After that it will reset and run process (until success) again. Time from is specified by string containing number of weeks/days/hours/minutes/seconds, for example `1w2d3h4m8s`.
+
+After initializing Automation, treat it as function in [schedule library](https://schedule.readthedocs.io/en/stable/).
 
 ### Process
 Function executing main task.
+
+Can use <b>Kwargs</b> (more on that later).
+
+### Condition
+Function returning True or False. It's supposed to check if everything for needed for process is in place (for example files in directory etc.) or if output if fine (for example check if output files were generated or not).
 
 Can use <b>Kwargs</b> (more on that later).
 
@@ -40,12 +46,6 @@ c = Condition(
     kwargs=kw
 )
 ```
-
-### Automation
-Setting up process, time frame and conditions. This is most important element. It will check if process was successful and if so, it will stop future execution in specified time frame. After that it will reset and run process (until success) again. Time from is specified by string containing number of weeks/days/hours/minutes/seconds, for example `1w2d3h4m8s`.
-
-After initializing Automation, treat it as function in [schedule library](https://schedule.readthedocs.io/en/stable/).
-
 
 ## Full Example
 ### Basic
